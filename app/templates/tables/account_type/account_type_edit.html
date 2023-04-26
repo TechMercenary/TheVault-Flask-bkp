@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Account Type > Edit Acount Type</h1>
+<hr>
+<form method="post">
+    <div class="row mb-3">
+        <label for="id" class="col-sm-2 col-form-label">Id</label>
+        <div class="col-sm-10">
+            <label class="col-sm-1 col-form-label" id="id">{{account_type.id}}</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="name" value="{{ account_type.name }}">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="description" name="description" {% if account_type.description %} value="{{ account_type.description }}" {% endif %}>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="normal_side" class="col-sm-2 col-form-label">Normal Side</label>
+        <div class="col-sm-10">
+            <select class="form-select" id="normal_side" name="normal_side" required>
+                <option value="DEBIT" {% if account_type.normal_side == 'DEBIT' %} selected {% endif %}>DEBIT (Left)</option>
+                <option value="CREDIT" {% if account_type.normal_side == 'CREDIT' %} selected {% endif %}>CREDIT (Right)</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

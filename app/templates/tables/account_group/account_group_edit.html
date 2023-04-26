@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Account Group > Edit Account Group</h1>
+<hr>
+<form method="post">
+    <div class="row mb-3">
+        <label for="id" class="col-sm-2 col-form-label">Id</label>
+        <div class="col-sm-10">
+            <label id="id" class="col-sm-10 col-form-label">{{ account_group.id }}</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="name" value="{{ account_group.name }}" required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="description" name="description" {% if account_group.description %} value="{{ account_group.description }}" {% endif %}>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="parent_account_group_id" class="col-sm-2 col-form-label">Parent Account Group</label>
+        <div class="col-sm-10">
+            <select class="form-select" id="parent_account_group_id" name="parent_account_group_id">
+                <option value="">[Empty]</option>
+                {% for available_account_group in available_account_groups %}
+                    <option value="{{ available_account_group.id }}" {% if available_account_group.id == account_group.parent_account_group_id %} selected {% endif %}>{{ available_account_group.alias }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

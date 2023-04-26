@@ -1,0 +1,8 @@
+{% set SECTION_TITLE = title %}
+{% extends 'base.html' %}
+
+{% import 'macros.html' as macros %}
+
+{% block content %}
+    {{ macros.generate_table(items) }}
+{% endblock %}
