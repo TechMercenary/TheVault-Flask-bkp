@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Account Overdraft</h1>
+<hr>
+<a class="btn btn-success btn-sm" href="{{  url_for('account_overdraft_create') }}" role="button">New Account Overdraft</a>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-sm table-light align-middle">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Account</th>
+        <th scope="col">Started At</th>
+        <th scope="col">Limit Amount</th>
+        <th scope="col">Action</th> 
+    </tr>
+
+    {% for account_overdraft in account_overdrafts %}
+    <tr>
+        <th scope="row">{{ account_overdraft.id }}</td>
+        <td>{{ account_overdraft.account.alias }}</td>
+        <td>{{ account_overdraft.started_at }}</td>
+        <td>{{ '{:,.2f}'.format(account_overdraft.limit_amount) }}</td>
+        
+        <td>
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-sm" href="{{  url_for('account_overdraft_edit', account_overdraft_id=account_overdraft.id) }}" role="button">&#x270E;</a>
+                <a class="btn btn-danger btn-sm" href="{{  url_for('account_overdraft_delete', account_overdraft_id=account_overdraft.id) }}" role="button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Transaction</h1>
+<hr>
+<a class="btn btn-success btn-sm" href="{{ url_for('transaction_create') }}" role="button">New Transaction</a>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-sm table-light align-middle">
+    <tr>
+        <th scope="col" class="text-center" rowspan="2">#</th>
+        <th scope="col" class="text-center" rowspan="2">Created At</th>
+        <th scope="col" class="text-center" rowspan="2">Description</th>
+        <th scope="col" class="text-center" rowspan="2">Installments</th>
+        <th scope="col" class="text-center" colspan="3" class="text-center">DEBIT</th>
+        <th scope="col" class="text-center" colspan="3" class="text-center">CREDIT</th>
+        <th scope="col" class="text-center" rowspan="2">R?</th>
+        <th scope="col" class="text-center" rowspan="2">Action</th> 
+    </tr>
+    <tr>
+        <th scope="col" class="text-center">Reference</th>
+        <th scope="col" class="text-center">Account</th>
+        <th scope="col" class="text-center">Amount</th>
+        <th scope="col" class="text-center">Reference</th>
+        <th scope="col" class="text-center">Account</th>
+        <th scope="col" class="text-center">Amount</th>
+    </tr>
+
+    {% for transaction in transactions %}
+    <tr>
+        <th scope="row">{{ transaction.id }}</td>
+        <td>{{ transaction.created_at }}</td>
+        <td>{% if transaction.description %} {{ transaction.description }} {% endif %}</td>
+        <td>{{ "{:02d}".format(transaction.installment_number) }} / {{ "{:02d}".format(transaction.installment_total) }}</td>
+        <td>{{ transaction.debit_reference }}</td>
+        <td>{{ transaction.debit_account.alias }}</td>
+        <td>{{ transaction.debit_amount }}</td>
+        <td>{{ transaction.credit_reference }}</td>
+        <td>{{ transaction.credit_account.alias }}</td>
+        <td>{{ transaction.credit_amount }}</td>
+        <td>{% if transaction.is_reconciled %} Y {% else %} N {% endif %}</td>
+        <td>
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('transaction_edit', transaction_id=transaction.id) }}" role="button">&#x270E;</a>
+                <a class="btn btn-danger btn-sm" href="{{ url_for('transaction_delete', transaction_id=transaction.id) }}" role="button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Accounts</h1>
+<hr>
+<a class="btn btn-success btn-sm" href="{{  url_for('account_create') }}" role="button">New Account</a>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-sm table-light align-middle">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Alias</th>
+        <th scope="col">Cur</th>
+        <th scope="col">Number</th>
+        <th scope="col">Description</th>
+        <th scope="col">Opened At</th>
+        <th scope="col">Closed At</th>
+        <th scope="col">Actions</th>
+    </tr>
+
+    {% for account in accounts %}
+    <tr>
+        <th scope="row">{{ account.id }}</td>
+        <td>{{ account.alias }}</td>
+        <td>{{ account.currency.code }}</td>
+        <td>{% if account.number %} {{ account.number }} {% endif %}</td>
+        <td>{% if account.description %} {{ account.description }} {% endif %}</td>
+        <td>{{ account.opened_at }}</td>
+        <td>{% if account.closed_at %} {{ account.closed_at }} {% endif %}</td>
+        <td>
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('account_edit', account_id=account.id) }}" role="button">&#x270E;</a>
+                <a class="btn btn-danger btn-sm" href="{{ url_for('account_delete', account_id=account.id) }}" role="button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

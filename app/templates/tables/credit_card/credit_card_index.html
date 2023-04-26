@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Credit Cards</h1>
+<hr>
+<a class="btn btn-success btn-sm" href="{{  url_for('credit_card_create') }}" role="button">New Credit Card</a>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-sm table-light align-middle">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Account</th>
+        <th scope="col">Cash Account</th>
+        <th scope="col">Cash Account</th>
+        <th scope="col">Description</th>
+        <th scope="col">Action</th> 
+    </tr>
+
+    {% for credit_card in credit_cards %}
+    <tr>
+        <th scope="row">{{ credit_card.id }}</td>
+        <td>{{ credit_card.code }}</td>
+        <td>{{ credit_card.description }}</td>
+        <td>
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-sm" href="{{  url_for('credit_card_edit', credit_card_id=credit_card.id) }}" role="button">&#x270E;</a>
+                <a class="btn btn-danger btn-sm" href="{{  url_for('credit_card_delete', credit_card_id=credit_card.id) }}" role="button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

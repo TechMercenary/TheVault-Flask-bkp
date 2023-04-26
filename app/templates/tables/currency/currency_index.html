@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Currencies</h1>
+<hr>
+<a class="btn btn-success btn-sm" href="{{  url_for('currency_create') }}" role="button">New Currency</a>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-sm table-light align-middle">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Code</th>
+        <th scope="col">Description</th>
+        <th scope="col">Action</th> 
+    </tr>
+
+    {% for currency in currencies %}
+    <tr>
+        <th scope="row">{{ currency.id }}</td>
+        <td>{{ currency.code }}</td>
+        <td>{{ currency.description }}</td>
+        <td>
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-sm" href="{{  url_for('currency_edit', currency_id=currency.id) }}" role="button">&#x270E;</a>
+                <a class="btn btn-danger btn-sm" href="{{  url_for('currency_delete', currency_id=currency.id) }}" role="button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

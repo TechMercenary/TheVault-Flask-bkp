@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Account Group > New Account Group</h1>
+<hr>
+<form method="post">
+    <div class="row mb-3">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="parent_account_group_id" class="col-sm-2 col-form-label">Parent Account Group</label>
+        <div class="col-sm-10">
+            <select class="form-select" id="parent_account_group_id" name="parent_account_group_id">
+                <option value="">[Empty]</option>
+                {% for account_group in account_groups %}
+                    <option value="{{account_group.id}}">{{account_group.alias}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

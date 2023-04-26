@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Account Type</h1>
+<hr>
+<a class="btn btn-success btn-sm" href="{{ url_for('account_type_create') }}" role="button">Account type</a>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-sm table-light align-middle">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Normal Side</th>
+        <th scope="col">Action</th> 
+    </tr>
+
+    {% for account_type in account_types %}
+    <tr>
+        <th scope="row">{{ account_type.id }}</td>
+        <td>{{ account_type.name }}</td>
+        <td>{% if account_type.description %} {{ account_type.description }} {% endif %}</td>
+        <td>{{ account_type.normal_side }}</td>
+        <td>
+            <div class="container-fluid">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('account_type_edit', account_type_id=account_type.id) }}" role="button">&#x270E;</a>
+                <a class="btn btn-danger btn-sm" href="{{ url_for('account_type_delete', account_type_id=account_type.id) }}" role="button" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

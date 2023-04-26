@@ -1,0 +1,12 @@
+{% macro generate_table(headings) %}
+    <table>
+        <thead>
+        <tr>
+            {% for heading in headings %}
+            <th>{{ heading }}</th>
+            {% endfor %}
+            <th>Actions</th>
+        </tr>
+        </thead>
+    </table>
+{% endmacro %}

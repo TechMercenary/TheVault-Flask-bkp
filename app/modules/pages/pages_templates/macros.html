@@ -1,0 +1,25 @@
+{% macro generate_table(items) %}
+    <table>
+        <thead>
+        <tr>
+            {% for key in items[0].to_dict().keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+            {% for key, value in item.to_dict().items() %}
+                <td>{{ value['value'] }}</td>
+            {% endfor %}
+            <td>
+                <button>Edit</button>
+                <button>Delete</button>
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}

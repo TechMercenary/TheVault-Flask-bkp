@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Transactions > New Transaction</h1>
+<hr>
+<form method="post">
+    <div class="row mb-3">
+        <label for="created_at_year" class="col-sm-2 col-form-label">Created At</label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <select class="form-select col-sm-10" id="created_at_year" name="created_at_year" required>
+                    {% for year in range(2000, 2101) %}
+                        <option value="{{ year }}" {% if year == current_year %} selected {% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+                <span class="input-group-text">-</span>
+                <select class="form-select" id="created_at_month" name="created_at_month" required>
+                    {% for month in range(1, 13) %}
+                        <option value="{{ month }}" {% if month == current_month %} selected {% endif %}>{{ "{:02d}".format(month) }}</option>
+                    {% endfor %}
+                </select>
+                <span class="input-group-text">-</span>
+                <select class="form-select" id="created_at_day" name="created_at_day" required>
+                    {% for day in range(1, 32) %}
+                        <option value="{{ day }}" {% if day == current_day %} selected {% endif %}>{{ "{:02d}".format(day) }}</option>
+                    {% endfor %}
+                </select>
+                <span class="input-group-text">T</span>
+                <select class="form-select" id="created_at_hour" name="created_at_hour" required>
+                    {% for hour in range(0, 60) %}
+                        <option value="{{ hour }}" {% if hour == current_hour %} selected {% endif %}>{{ "{:02d}".format(hour) }}</option>
+                    {% endfor %}
+                </select>
+                <span class="input-group-text">:</span>
+                <select class="form-select" id="created_at_minute" name="created_at_minute" required>
+                    {% for minute in range(0, 60) %}
+                        <option value="{{ minute }}" {% if minute == current_minute %} selected {% endif %}>{{ "{:02d}".format(minute) }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Installments</label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <span class="input-group-text">Number</span>
+                <input type="number" class="form-control" name="installment_number" min="1" value="1" required>
+                <span class="input-group-text">Of</span>
+                <input type="number" class="form-control" name="installment_total" min="1" value="1" required>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label text-center"></label>
+        <label class="col-sm-5 col-form-label text-center">DEBIT</label>
+        <label class="col-sm-5 col-form-label text-center">CREDIT</label>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Reference</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="debit_reference">
+        </div>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="credit_reference">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Account</label>
+        <div class="col-sm-5">
+            <select class="form-select" id="account_id" name="debit_account_id" required>
+                {% for account in accounts %}
+                    <option value="{{ account.id }}">{{ account.alias }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <select class="form-select" id="account_id" name="credit_account_id" required>
+                {% for account in accounts %}
+                    <option value="{{ account.id }}">{{ account.alias }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Amount</label>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" name="debit_amount" value="0.00" required>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" name="credit_amount" value="0.00" required>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
